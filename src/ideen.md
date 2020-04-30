@@ -1,0 +1,3 @@
+Frontend/GUI:
+Backend:
+Database:
