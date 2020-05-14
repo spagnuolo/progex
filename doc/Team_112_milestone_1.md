@@ -6,7 +6,7 @@
 ---
 
 1. Goal Definition
-    > Private Grocery Manager
+    > Private Grocery Manager  
     > The main idea of this application is a service to manage grocery.
     > You can scan products with bar codes and add them to a data base.
     > With this data it is possible to create shopping lists and recipes.
