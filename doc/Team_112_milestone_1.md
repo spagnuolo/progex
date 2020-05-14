@@ -1,7 +1,24 @@
-### Table Of Contents
+<h1 align="center">Milestone 1</h1>
+<h3 align="center">Programming Exercises</h3>
+<h3 align="center">Mevius</h3>
+<h4 align="center">Summer Term 2020</h4>
 
-1. Introduction
+---
+
+1. Goal Definition
+    > Private Grocery Manager
+    > The main idea of this application is a service to manage grocery.
+    > You can scan products with bar codes and add them to a data base.
+    > With this data it is possible to create shopping lists and recipes.
+    > This service is running on a Server accessed through any browser.
+    > Thus it's accessible through desktops and smart phones.
+
 1. Team/Group Members
+    | Name | ID | Email |
+    | ---- | -- | ----- |
+    | Barbar Ahmad | 1229327 | bahmad@stud.fra-uas.de |
+    | Giuliano Spagnuolo | 1253940 | spagnuol@stud.fra-uas.de |
+    | Julius Sange | 1256675 | sange@stud.fra-uas.de |
 1. Project Documentation
     1. Specification
         * Request-Specification (definition) (DIN 69905)
