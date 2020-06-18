@@ -32,19 +32,19 @@ class Item(db.Model):
     due_date = db.Column(db.DateTime)
     product_id = db.Column(db.Integer, Foreignkey('Product.id'))
 
-class Product_Category(db.Model)
+class Product_Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     description = db.Column(db.String(1000))
 
-class Recipe(db.Model)
+class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     instructions = db.Column(db.String(10000))
     dificulty = db.Column(db.Integer)
     time = db.Column(db.Integer)
 
-class RecipeIngredients(db.Model)
+class RecipeIngredients(db.Model):
     recipe_id = db.Column(db.Integer, ForeginKey('Recipe.id'))
     product_id = db.Column(db.Integer, ForeginKey('Product.id'))
     amount = db.Column(db.Integer)
