@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 from . import db
-
+from sqlalchemy import ForeignKey
 """
 Definitions of Models for the Database (Tables),
 After you added new Models do:
@@ -17,27 +17,33 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
-    household_id = db.Column(db.Integer, Foreignkey('Household.id')) 
+    
 
 
 class Household(db.Model):
+    __tablename__ = 'Household'
     id = db.Column(db.Integer, primary_key=True)
 
 class Product(db.Model):
+    __tablename__ = 'Product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     
+    
 class Item(db.Model):
+    __tablename__ = 'Item'
     id = db.Column(db.Integer, primary_key=True)
     due_date = db.Column(db.DateTime)
-    product_id = db.Column(db.Integer, Foreignkey('Product.id'))
+    product_id = db.Column(db.Integer, ForeignKey('Product.id'))
 
 class Product_Category(db.Model):
+    __tablename__ = 'Product_Category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     description = db.Column(db.String(1000))
 
 class Recipe(db.Model):
+    __tablename__ ='Recipe'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     instructions = db.Column(db.String(10000))
@@ -45,6 +51,7 @@ class Recipe(db.Model):
     time = db.Column(db.Integer)
 
 class RecipeIngredients(db.Model):
-    recipe_id = db.Column(db.Integer, ForeginKey('Recipe.id'))
-    product_id = db.Column(db.Integer, ForeginKey('Product.id'))
+    __tablename__ ='RecipeIngredients'
+    recipe_id = db.Column(db.Integer, ForeignKey('Recipe.id'), primary_key=True)
+    product_id = db.Column(db.Integer, ForeignKey('Product.id'), primary_key=True)
     amount = db.Column(db.Integer)
