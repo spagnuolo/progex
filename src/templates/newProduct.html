@@ -6,12 +6,23 @@
 
       <div class="field">
         <div class="control">
-          <input
+          <input required 
             class="input is-large"
             type="text"
             name="name"
             placeholder="Product Name"
             autofocus=""
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="date"
+            name="date"
+            placeholder="Due Date"
           />
         </div>
       </div>
@@ -41,7 +52,7 @@
       <div class="field">
         <div class="control">
           <select class="input is-large" name="group">
-            <option value="other">Other</option>
+            <option value="" selected>Other</option>
             <option value="drink">Drink</option>
             <option value="vegetable">Vegetable</option>
             <option value="fruit">Fruit</option>
@@ -51,6 +62,17 @@
             <option value="animal">Animal</option>
             <option value="mushroom">Mushroom</option>
             <option value="fastfood">Fast Food</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <select class="input is-large" name="recipe">
+            <option value="" selected>Part of Recipe</option>
+            <option value="none">placeholder</option>
+            <option value="none">placeholder</option>
+            <option value="none">placeholder</option>
           </select>
         </div>
       </div>
