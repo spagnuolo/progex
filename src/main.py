@@ -30,6 +30,6 @@ def scanner():
 def scan():
     if request.method == 'POST':
         with open('test.png', 'wb') as file:
-            file.write(base64.b64decode(request.data[22:]))
+            file.write(base64.b64decode(request.form['photo'][22:]))
 
-    return render_template('scanner.html')
+    return render_template('newProduct.html', barcode="12345")

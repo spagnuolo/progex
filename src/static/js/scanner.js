@@ -1,5 +1,5 @@
 (function() {
-  var width = 320;
+  var width = 480;
   var height = 0;
   var streaming = false;
   var video = null;
@@ -11,6 +11,8 @@
     video = document.getElementById('video');
     canvas = document.getElementById('canvas');
     photo = document.getElementById('photo');
+    formPhoto = document.getElementById('formPhoto');
+    submitDiv = document.getElementById('submitDiv');
     button = document.getElementById('button');
 
     navigator.mediaDevices.getUserMedia({video: true, audio: false})
@@ -52,11 +54,13 @@
   
     var data = canvas.toDataURL('image/png');
     photo.setAttribute('src', data);
+    formPhoto.setAttribute('value', data);
+    submitDiv.removeAttribute('hidden')
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/scan", true);
-    xhr.setRequestHeader('Content-Type', 'image/png');
-    xhr.send(data);
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("POST", "/scan", true);
+    // xhr.setRequestHeader('Content-Type', 'image/png');
+    // xhr.send(data);
   }
 
   window.addEventListener('load', init, false);
