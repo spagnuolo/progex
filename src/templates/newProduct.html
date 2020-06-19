@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block content %}
+<div class="column is-8 is-offset-2">
+  <h3 class="title">New Product</h3>
+  <div class="box">
+    <form method="POST" action="/newProductEntry">
+
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="text"
+            name="name"
+            placeholder="Product Name"
+            autofocus=""
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="text"
+            name="barcode"
+            placeholder="Barcode"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="text"
+            name="discription"
+            placeholder="Discription"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <select class="input is-large" name="group">
+            <option value="other">Other</option>
+            <option value="drink">Drink</option>
+            <option value="vegetable">Vegetable</option>
+            <option value="fruit">Fruit</option>
+            <option value="pastry">Pastry</option>
+            <option value="candy">Candy</option>
+            <option value="spice">Spice</option>
+            <option value="animal">Animal</option>
+            <option value="mushroom">Mushroom</option>
+            <option value="fastfood">Fast Food</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="button is-block is-info is-large is-fullwidth">
+        Enter
+      </button>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

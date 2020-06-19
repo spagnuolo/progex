@@ -14,6 +14,14 @@ def index():
 def profile():
     return render_template('profile.html', name=current_user.name)
 
+@main.route('/newProduct')
+def new_product():
+    return render_template('newProduct.html')
+
+@main.route('/newProductEntry', methods=['POST'])
+def new_product_entry():
+    return str(request.form)
+
 @main.route('/scanner')
 def scanner():
     return render_template('scanner.html')
