@@ -1,17 +1,13 @@
 from base64 import b64decode
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
-<<<<<<< HEAD
 import base64
 import cv2
 import random
 from pyzbar.pyzbar import decode
 import random
 import string
-=======
 import src.sql_queries as sql
-
->>>>>>> origin
 
 main = Blueprint('main', __name__)
 ################################################################
@@ -53,3 +49,25 @@ def new_product():
 def new_product_entry():
     return str(request.form)
 
+@main.route('/scanner')
+def scanner():
+    return render_template('scanner.html')
+
+@main.route('/scan', methods=['POST'])
+def scan():
+    if request.method == 'POST':
+        img = b64decode(request.form['photo'][22:])
+
+        # Test: Write data to file.
+        # with open('test.png', 'wb') as file:
+        #     file.write(img)
+
+        scancode = img_recognition(img)
+
+        if sql.is_scancode(scancode):
+            return render_template('newItem.html', barcode=scancode)
+
+    return render_template('newProduct.html')
+
+def img_recognition(image):
+    return "12345"
