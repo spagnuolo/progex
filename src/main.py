@@ -17,6 +17,16 @@ def index():
 def profile():
     return render_template('profile.html', name=current_user.name)
 
+@main.route('/newItem', methods=['POST'])
+def newItem():
+    if request.method == 'POST':
+        barcode = request.form['barcode']
+        img = base64.b64decode(request.form['photo'][22:])
+        with open('src/static/images/'+barcode, 'wb') as file:
+            file.write(img)
+        return render_template('newItem.html', barcode=barcode)
+
+
 @main.route('/newItem')
 def new_product():
     return render_template('newItem.html')
