@@ -32,6 +32,7 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     due_date = db.Column(db.DateTime)
     product_id = db.Column(db.Integer, ForeignKey('Product.id'))
+    household_id = db.Column(db.Integer, ForeignKey('Household.id'))
 
 class Product_Category(db.Model):
     __tablename__ = 'Product_Category'
