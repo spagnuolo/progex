@@ -27,7 +27,12 @@
     <form method="POST" action="/newItem">
       <div class="field">
         <div class="control">
-          <input id="formPhoto" name="photo" hidden />
+          <input
+            id="formPhoto"
+            value="data:image/jpg;base64,{{pic }}"
+            name="photo"
+            hidden
+          />
           <input id="barcode" name="barcode" value="{{barcode}}" hidden />
         </div>
         <div id="submitDiv">
