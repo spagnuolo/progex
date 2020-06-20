@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var width = 480;
   var height = 0;
   var streaming = false;
@@ -8,60 +8,62 @@
   var button = null;
 
   function init() {
-    video = document.getElementById('video');
-    canvas = document.getElementById('canvas');
-    photo = document.getElementById('photo');
-    formPhoto = document.getElementById('formPhoto');
-    submitDiv = document.getElementById('submitDiv');
-    button = document.getElementById('button');
+    video = document.getElementById("video");
+    canvas = document.getElementById("canvas");
+    photo = document.getElementById("photo");
+    formPhoto = document.getElementById("formPhoto");
+    submitDiv = document.getElementById("submitDiv");
+    button = document.getElementById("button");
 
-    navigator.mediaDevices.getUserMedia({video: true, audio: false})
-    .then(function(stream) {
-      video.srcObject = stream;
-      video.play();
-    })
-    .catch(function(err) {
-      console.log(err);
-    });
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: false })
+      .then(function (stream) {
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
 
-    video.addEventListener('canplay', function(ev){
-      if (!streaming) {
-        height = video.videoHeight / (video.videoWidth/width);
-      
-        if (isNaN(height)) {
-          height = width / (4/3);
+    video.addEventListener(
+      "canplay",
+      function (ev) {
+        if (!streaming) {
+          height = video.videoHeight / (video.videoWidth / width);
+
+          if (isNaN(height)) {
+            height = width / (4 / 3);
+          }
+
+          video.setAttribute("width", width);
+          video.setAttribute("height", height);
+          canvas.setAttribute("width", width);
+          canvas.setAttribute("height", height);
+          streaming = true;
         }
-      
-        video.setAttribute('width', width);
-        video.setAttribute('height', height);
-        canvas.setAttribute('width', width);
-        canvas.setAttribute('height', height);
-        streaming = true;
-      }
-    }, false);
+      },
+      false
+    );
 
-    button.addEventListener('click', function(ev){
-      takepicture();
-      ev.preventDefault();
-    }, false);
+    button.addEventListener(
+      "click",
+      function (ev) {
+        takepicture();
+      },
+      false
+    );
   }
-  
+
   function takepicture() {
-    var context = canvas.getContext('2d');
+    var context = canvas.getContext("2d");
     canvas.width = width;
     canvas.height = height;
     context.drawImage(video, 0, 0, width, height);
-  
-    var data = canvas.toDataURL('image/png');
-    photo.setAttribute('src', data);
-    formPhoto.setAttribute('value', data);
-    submitDiv.removeAttribute('hidden')
 
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("POST", "/scan", true);
-    // xhr.setRequestHeader('Content-Type', 'image/png');
-    // xhr.send(data);
+    var data = canvas.toDataURL("image/png");
+    /* photo.setAttribute("src", data); */
+    formPhoto.setAttribute("value", data);
   }
 
-  window.addEventListener('load', init, false);
+  window.addEventListener("load", init, false);
 })();

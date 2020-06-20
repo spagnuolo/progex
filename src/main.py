@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 import base64
+import cv2
+from pyzbar.pyzbar import decode
 
 main = Blueprint('main', __name__)
 
@@ -22,14 +24,4 @@ def new_product():
 def new_product_entry():
     return str(request.form)
 
-@main.route('/scanner')
-def scanner():
-    return render_template('scanner.html')
 
-@main.route('/scan', methods=['POST'])
-def scan():
-    if request.method == 'POST':
-        with open('test.png', 'wb') as file:
-            file.write(base64.b64decode(request.form['photo'][22:]))
-
-    return render_template('newProduct.html', barcode="12345")
