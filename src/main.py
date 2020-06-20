@@ -14,11 +14,11 @@ def index():
 def profile():
     return render_template('profile.html', name=current_user.name)
 
-@main.route('/newProduct')
+@main.route('/newItem')
 def new_product():
-    return render_template('newProduct.html')
+    return render_template('newItem.html')
 
-@main.route('/newProductEntry', methods=['POST'])
+@main.route('/newItemEntry', methods=['POST'])
 def new_product_entry():
     return str(request.form)
 
@@ -32,4 +32,4 @@ def scan():
         with open('test.png', 'wb') as file:
             file.write(base64.b64decode(request.form['photo'][22:]))
 
-    return render_template('newProduct.html', barcode="12345")
+    return render_template('newItem.html', barcode="12345")
