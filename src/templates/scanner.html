@@ -7,7 +7,7 @@
     </div>
 
     <canvas id="canvas" hidden="true"></canvas>
-    <form method="POST" action="/takePic">
+    <form method="POST" action="/scan">
       <div class="field">
         <button
           id="button"
@@ -38,7 +38,7 @@
         <div id="submitDiv">
           {% if barcode != "None" %}
           <button class="button is-block is-info is-large is-fullwidth">
-            Use this picture {{barcode}}
+            Use this barcode: {{barcode}}
           </button>
           {% else %}
           <div class="notification is-danger">

@@ -4,13 +4,13 @@
   var streaming = false;
   var video = null;
   var canvas = null;
-  var photo = null;
+  // var photo = null;
   var button = null;
 
   function init() {
     video = document.getElementById("video");
     canvas = document.getElementById("canvas");
-    photo = document.getElementById("photo");
+    // photo = document.getElementById("photo");
     formPhoto = document.getElementById("formPhoto");
     submitDiv = document.getElementById("submitDiv");
     button = document.getElementById("button");

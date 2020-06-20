@@ -1,21 +1,10 @@
-from base64 import b64decode
-from flask import Blueprint, render_template, request
+"""Module with main flask logic"""
+from flask import Blueprint, render_template, request, make_response
 from flask_login import login_required, current_user
-import base64
-import cv2
-import random
-from pyzbar.pyzbar import decode
-import random
-import string
 import src.sql_queries as sql
+import src.camera as camera
 
 main = Blueprint('main', __name__)
-################################################################
-# Helper Functions
-################################################################
-def random_string_generator(str_size, allowed_chars):
-    return ''.join(random.choice(allowed_chars) for x in range(str_size))
-
 
 @main.route('/')
 def index():
@@ -29,14 +18,14 @@ def profile():
 @main.route('/newItem', methods=['POST'])
 def newItem():
     if request.method == 'POST':
-        barcode = request.form['barcode']
-        img = base64.b64decode(request.form['photo'][22:])
-        filename = random_string_generator(12,string.ascii_letters)
-        if barcode != "None":
-            filename = barcode
-        with open(f'src/static/images/{filename}.jpg', 'wb') as file:
-            file.write(img)
-        return render_template('newItem.html', barcode=barcode)
+        code = request.form['barcode']
+
+        if sql.is_scancode(code):
+            return render_template('newItem.html', barcode=code)
+
+        return render_template('newProduct.html', barcode=code)
+
+    return render_template('newItem.html')
 
 
 @main.route('/newItem')
@@ -54,18 +43,7 @@ def scanner():
 @main.route('/scan', methods=['POST'])
 def scan():
     if request.method == 'POST':
-        img = b64decode(request.form['photo'][22:])
+        image, scancode = camera.barcode_locater(request.form['photo'])
 
-        # Test: Write data to file.
-        # with open('test.png', 'wb') as file:
-        #     file.write(img)
+    return make_response(render_template('scanner.html', pic=image, barcode=scancode))
 
-        scancode = img_recognition(img)
-
-        if sql.is_scancode(scancode):
-            return render_template('newItem.html', barcode=scancode)
-
-    return render_template('newProduct.html')
-
-def img_recognition(image):
-    return "12345"

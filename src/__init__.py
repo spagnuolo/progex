@@ -39,7 +39,7 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    from .camera import camera as camera_blueprint
-    app.register_blueprint(camera_blueprint)
+    # from .camera import camera as camera_blueprint
+    # app.register_blueprint(camera_blueprint)
 
     return app
