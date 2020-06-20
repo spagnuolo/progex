@@ -20,7 +20,7 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
-    if not user and not check_password_hash(user.password, password):
+    if not user or not check_password_hash(user.password, password):
         flash('Please Check your login Details')
         return redirect(url_for('auth.login'))
 
