@@ -55,3 +55,8 @@ class RecipeIngredients(db.Model):
     recipe_id = db.Column(db.Integer, ForeignKey('Recipe.id'), primary_key=True)
     product_id = db.Column(db.Integer, ForeignKey('Product.id'), primary_key=True)
     amount = db.Column(db.Integer)
+
+class ScannCodes(db.Model):
+   __tablename__ ='ScannCodes'
+   code= db.Column(db.Integer, primary_key=True)
+   product_id = db.Column(db.Integer, ForeignKey('Product.id'))
