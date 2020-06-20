@@ -34,8 +34,6 @@ def newItem():
         filename = random_string_generator(12,string.ascii_letters)
         if barcode != "None":
             filename = barcode
-        print(barcode)
-        print(filename)
         with open(f'src/static/images/{filename}.jpg', 'wb') as file:
             file.write(img)
         return render_template('newItem.html', barcode=barcode)
