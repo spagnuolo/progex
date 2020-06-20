@@ -1,12 +1,17 @@
 from base64 import b64decode
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
+<<<<<<< HEAD
 import base64
 import cv2
 import random
 from pyzbar.pyzbar import decode
 import random
 import string
+=======
+import src.sql_queries as sql
+
+>>>>>>> origin
 
 main = Blueprint('main', __name__)
 ################################################################
@@ -47,5 +52,4 @@ def new_product():
 @main.route('/newItemEntry', methods=['POST'])
 def new_product_entry():
     return str(request.form)
-
 

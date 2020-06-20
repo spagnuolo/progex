@@ -1,7 +1,7 @@
 '''Methods for all our main queries'''
 import sqlalchemy
 
-ENGINE = sqlalchemy.create_engine('sqlite:///groceries.db')
+ENGINE = sqlalchemy.create_engine('sqlite:///src/groceries.db')
 
 def is_scancode(scancode):
     '''Searching for Existing link'''
@@ -11,12 +11,14 @@ def is_scancode(scancode):
         where code = ?
     ''', (scancode))
 
-    # Found scancode.
-    if result.fetchall()[0] is not None:
-        return True
+    answer = result.fetchall()
 
-    # There is no such scancode.
-    return False
+    # List is empty. There is no such scancode.
+    if not answer:
+        return False
+
+    # Found scancode.
+    return True
 
 
 def example():
