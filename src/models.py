@@ -26,7 +26,7 @@ class Product(db.Model):
     __tablename__ = 'Product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
-
+    product_category = db.Column(db.Integer, ForeignKey('Product_Category'))
 class Item(db.Model):
     __tablename__ = 'Item'
     id = db.Column(db.Integer, primary_key=True)
