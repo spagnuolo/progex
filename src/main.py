@@ -1,11 +1,12 @@
+from base64 import b64decode
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 import base64
 import cv2
 from pyzbar.pyzbar import decode
 
-main = Blueprint('main', __name__)
 
+main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
@@ -16,11 +17,11 @@ def index():
 def profile():
     return render_template('profile.html', name=current_user.name)
 
-@main.route('/newProduct')
+@main.route('/newItem')
 def new_product():
-    return render_template('newProduct.html')
+    return render_template('newItem.html')
 
-@main.route('/newProductEntry', methods=['POST'])
+@main.route('/newItemEntry', methods=['POST'])
 def new_product_entry():
     return str(request.form)
 
