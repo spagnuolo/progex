@@ -1,6 +1,7 @@
 from base64 import b64decode
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
+import src.sql_queries as sql
 
 
 main = Blueprint('main', __name__)
@@ -32,18 +33,15 @@ def scan():
         img = b64decode(request.form['photo'][22:])
 
         # Test: Write data to file.
-        with open('test.png', 'wb') as file:
-            file.write(img)
+        # with open('test.png', 'wb') as file:
+        #     file.write(img)
 
         scancode = img_recognition(img)
 
-        if is_scancode(scancode):
+        if sql.is_scancode(scancode):
             return render_template('newItem.html', barcode=scancode)
 
     return render_template('newProduct.html')
 
 def img_recognition(image):
     return "12345"
-
-def is_scancode(code):
-    return True
