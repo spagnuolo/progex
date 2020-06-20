@@ -1,9 +1,9 @@
+from base64 import b64decode
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
-import base64
+
 
 main = Blueprint('main', __name__)
-
 
 @main.route('/')
 def index():
@@ -29,7 +29,21 @@ def scanner():
 @main.route('/scan', methods=['POST'])
 def scan():
     if request.method == 'POST':
-        with open('test.png', 'wb') as file:
-            file.write(base64.b64decode(request.form['photo'][22:]))
+        img = b64decode(request.form['photo'][22:])
 
-    return render_template('newItem.html', barcode="12345")
+        # Test: Write data to file.
+        with open('test.png', 'wb') as file:
+            file.write(img)
+
+        scancode = img_recognition(img)
+
+        if is_scancode(scancode):
+            return render_template('newItem.html', barcode=scancode)
+
+    return render_template('newProduct.html')
+
+def img_recognition(image):
+    return "12345"
+
+def is_scancode(code):
+    return True
