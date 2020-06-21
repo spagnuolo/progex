@@ -73,21 +73,49 @@ def get_invetory_for_Recipe(household_id,recipe_id):
     Where household_id = ? and i.product_id = p.id and p.id = c.product_id and p.id = r.product_id and r.recipe_id = ? Group By i.id''',(household_id, recipe_id))
     answer = result.fetchall()
     return answer	    
+#item
+def new_item(household_id, product_id, due_date):
+    result = ENGINE.execute('''INSERT INTO Item(household_id, product_id, due_date) VALUES(?,?,?); ''',(household_id,product_id,due_date))
+
+
+#Recipe
+def new_recipe(name, instructions, dificulty, time):
+    result = ENGINE.execute('''INSERT INTO Recipe(name, instructions, dificulty, time) VALUES(?,?,?,?); ''',(name, instructions, dificulty, time))
+    result = ENGINE.execute('''Select id From Recipe Where name = ? and instructions = ? Order by id desc''', (name,instructions))
+    answer = result.scalar()   
+    return answer
     
- 
+def get_all_recipe(recipe_id):
+    result = ENIGNE.execute('''Select * From Recipe where id = ?''', (recipe_id))
+    answer = result.fetchall()
+    return answer
+
+def set_name_recipe(recipe_id, name):
+    result = ENIGNE.execute('''Update Recipe where id = ? Set name=?''', (recipe_id,name))
+def set_instructions_recipe(recipe_id, instructions):
+    result = ENIGNE.execute('''Update Recipe where id = ? Set instructions=?''', (recipe_id,instructions))
+def set_dificulty_recipe(recipe_id, dificulty):
+    result = ENIGNE.execute('''Update Recipe where id = ? Set dificulty=?''', (recipe_id,dificulty))
+def set_time_recipe(recipe_id, time):
+    result = ENIGNE.execute('''Update Recipe where id = ? Set time=?''', (recipe_id,time))
 #deletes
-def delete_Item(item_id):
+def delete_item(item_id):
     result = ENGINE.execute('''Delete From Item Where id = ? ''',(item_id))
 
-def delete_Product(product_id):
+def delete_product(product_id):
     result = ENGINE.execute('''Delete From ScannCodes Where product_id = ? ''',(product_id))
     result = ENGINE.execute('''Delete From RecipeIngredients Where product_id = ? ''',(product_id))
     result = ENGINE.execute('''Delete From Item Where product_id = ? ''',(product_id))
 
-def delete_Recipe(recipe_id):
+def delete_recipe(recipe_id):
     result = ENGINE.execute('''Delete From RecipeIngredients Where recipe_id = ? ''',(recipe_id))
     result = ENGINE.execute('''Delete From Recipe Where id = ? ''',(recipe_id))
 
+def delete_scancode(scancode):
+    result = ENGINE.execute('''Delete From ScannCodes Where code = ? ''',(scancode))
+
+def delete_recipe_ingredients(recipe_id, product_id):
+    result = ENGINE.execute('''Delete From RecipeIngredients Where recipe_id = ? and product_id = ?''',(recipe_id, product_id))
 
 def example():
     '''An Example on how to use sqlalchemy with simple queries'''
