@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from .models import User
-from . import db
+from . import db, sql_queries
 
 auth = Blueprint('auth', __name__)
 
@@ -38,7 +38,8 @@ def signup_post():
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
-
+    hname = '{0}|{1}'.format(name,email)
+    hid = sql_queries.new_household(hname) 
     user = User.query.filter_by(email=email).first()
 
     if user:
@@ -46,7 +47,7 @@ def signup_post():
         return redirect(url_for('auth.login'))
 
     new_user = User(email=email, name=name,
-                    password=generate_password_hash(password, method='sha256'))
+                    password=generate_password_hash(password, method='sha256'), household_id=hid)
 
     db.session.add(new_user)
     db.session.commit()
