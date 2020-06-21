@@ -69,8 +69,8 @@ def get_inventory_by_product(household_id):
     return answer
     
 def get_invetory_for_Recipe(household_id,recipe_id):
-    result = ENGINE.execute('''Select p.name as Name, c.name as Category,Count(i.id) as Amount_stored, r.amount as Amount_needed From Item i,Product p,Product_Category c, RecipeIngredients r 
-    Where household_id = ? and i.product_id = p.id and p.id = c.product_id and p.id = r.product_id and r.recipe_id = ? Group By i.id''',(household_id, recipe_id))
+    result = ENGINE.execute('''Select p.name as Name, c.name as Category,Count(i.id) as Amount_stored, r.amount as Amount_needed From Product p,Product_Category c, RecipeIngredients r Left Join Item i on p.id = i.product_id
+    Where household_id = ? and p.id = c.product_id and p.id = r.product_id and r.recipe_id = ? Group By p.id''',(household_id, recipe_id))
     answer = result.fetchall()
     return answer	    
 #item
