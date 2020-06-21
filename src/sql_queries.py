@@ -91,13 +91,13 @@ def get_all_recipe(recipe_id):
     return answer
 
 def set_name_recipe(recipe_id, name):
-    result = ENIGNE.execute('''Update Recipe where id = ? Set name=?''', (recipe_id,name))
+    result = ENIGNE.execute('''Update Recipe Set name=? where id = ? ''', (name,recipe_id))
 def set_instructions_recipe(recipe_id, instructions):
-    result = ENIGNE.execute('''Update Recipe where id = ? Set instructions=?''', (recipe_id,instructions))
+    result = ENIGNE.execute('''Update Recipe Set instructions=? where id = ?''', (instructions,recipe_id))
 def set_dificulty_recipe(recipe_id, dificulty):
-    result = ENIGNE.execute('''Update Recipe where id = ? Set dificulty=?''', (recipe_id,dificulty))
+    result = ENIGNE.execute('''Update Recipe Set dificulty=? where id = ?''', (dificulty,recipe_id))
 def set_time_recipe(recipe_id, time):
-    result = ENIGNE.execute('''Update Recipe where id = ? Set time=?''', (recipe_id,time))
+    result = ENIGNE.execute('''Update Recipe Set time=? where id = ?''', (time,recipe_id))
 #deletes
 def delete_item(item_id):
     result = ENGINE.execute('''Delete From Item Where id = ? ''',(item_id))
