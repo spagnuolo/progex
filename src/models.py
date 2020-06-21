@@ -27,6 +27,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     product_category = db.Column(db.Integer, ForeignKey('Product_Category.id'))
+    description = db.Column(db.String(1000))
 class Item(db.Model):
     __tablename__ = 'Item'
     id = db.Column(db.Integer, primary_key=True)
@@ -38,7 +39,6 @@ class Product_Category(db.Model):
     __tablename__ = 'Product_Category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
-    description = db.Column(db.String(1000))
 
 class Recipe(db.Model):
     __tablename__ = 'Recipe'
