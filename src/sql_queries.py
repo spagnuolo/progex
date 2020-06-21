@@ -28,19 +28,24 @@ def get_product_id(scancode):
 
 def link_code_product(scancode, product_id):
     result = ENGINE.execute('''Insert Into ScannCodes(code, product_id) Values(?,?); ''',(scancode, product_id))
-    answer = result.inserted_primary_key()
-    return answer
+    #answer = result.inserted_primary_key()
+    #return answer
 
 def new_product(name, product_category_id,description):
     result = ENGINE.execute('''Insert Into Product(name, product_category,description) Values(?,?,?); ''',(name, product_category_id,description))
-    answer = result.inserted_primary_key()
-    return answer
+    #answer = result.inserted_primary_key()
+    #return answer
 
 def new_product_category(name):
     result = ENGINE.execute('''INSERT INTO Product_Category(name) VALUES(?) ''',(name))
+    #answer = result.scalar()
+    #return answer    
+def new_household(name):
+    result = ENGINE.execute('''INSERT INTO Household(name) VALUES(?) ''',(name))
+    result = ENGINE.execute('''Select id From Household Where name = ? Order by id desc''', (name))
     answer = result.scalar()
-    return answer    
-
+    return answer
+    
 def example():
     '''An Example on how to use sqlalchemy with simple queries'''
     result = ENGINE.execute('select * from user')
