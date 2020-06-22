@@ -54,10 +54,10 @@ def get_product_category_id_byname(name):
         return -1
     return answer
 def get_product_name(product_id):
-    result = ENGINE.execute('''Select name From Product Where id = ? ''',(name))
-	answer = result.scalar()
-	return answer
-#inventory    
+    result = ENGINE.execute('''Select name From Product Where id = ? ''',(product_id))
+    answer = result.scalar()
+    return answer
+#inventory
 def get_inventory(household_id):
     result = ENGINE.execute('''Select i.id, p.name as Name, c.name as Category,i.due_date From Item i,Product p,Product_Category c Where household_id = ? and i.product_id = p.id and p.id = c.product_id ''',(household_id))
     answer = result.fetchall()
