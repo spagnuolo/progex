@@ -16,6 +16,11 @@ def profile():
     table_ = sql.get_inventory(current_user.household_id)
     return render_template('profile.html', name=current_user.name, table=table_)
 
+@main.route('/newProduct')
+def new_product():
+    categories =  sql.get_all_product_categories()
+    return render_template('newProduct.html', categories=categories)
+
 @main.route('/newItem', methods=['POST'])
 def newItem():
     if request.method == 'POST':
@@ -26,11 +31,6 @@ def newItem():
 
         return render_template('newProduct.html', barcode=code)
 
-    return render_template('newItem.html')
-
-
-@main.route('/newItem')
-def new_product():
     return render_template('newItem.html')
 
 @main.route('/newItemEntry', methods=['POST'])

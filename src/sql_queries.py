@@ -41,6 +41,7 @@ def new_product_category(name):
     result = ENGINE.execute('''Select id From Product_Category Where name = ? Order by id desc''', (name))
     answer = result.scalar()   
     return answer
+
 def new_household(name):
     result = ENGINE.execute('''INSERT INTO Household(name) VALUES(?); ''',(name))
     result = ENGINE.execute('''Select id From Household Where name = ? Order by id desc''', (name))
@@ -53,6 +54,17 @@ def get_product_category_id_byname(name):
     if not answer:
         return -1
     return answer
+
+def get_all_product_categories():
+    result = ENGINE.execute('''Select name From Product_Category''')
+    answer = result.fetchall()
+
+    names = list()
+    for row in answer:
+        names.append(row[0])
+
+    return names
+
 def get_product_name(product_id):
     result = ENGINE.execute('''Select name From Product Where id = ? ''',(product_id))
     answer = result.scalar()
