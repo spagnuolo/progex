@@ -19,6 +19,7 @@ def is_scancode(scancode):
 
     # Found scancode.
     return True
+
 def get_product_id(scancode):
     result = ENGINE.execute('''Select product_id From ScannCodes where code = ?''', (scancode))
     answer = result.scalar()
@@ -69,6 +70,7 @@ def get_product_name(product_id):
     result = ENGINE.execute('''Select name From Product Where id = ? ''',(product_id))
     answer = result.scalar()
     return answer
+
 #inventory
 def get_inventory(household_id):
     result = ENGINE.execute('''Select i.id as id , p.name as Name, c.name as Category,i.due_date From Item i,Product p,Product_Category c Where household_id = ? and i.product_id = p.id and p.product_category = c.id ''',(household_id))
@@ -110,6 +112,7 @@ def set_dificulty_recipe(recipe_id, dificulty):
     result = ENGINE.execute('''Update Recipe Set dificulty=? where id = ?''', (dificulty,recipe_id))
 def set_time_recipe(recipe_id, time):
     result = ENGINE.execute('''Update Recipe Set time=? where id = ?''', (time,recipe_id))
+
 #deletes
 def delete_item(item_id):
     result = ENGINE.execute('''Delete From Item Where id = ? ''',(item_id))
@@ -128,6 +131,27 @@ def delete_scancode(scancode):
 
 def delete_recipe_ingredients(recipe_id, product_id):
     result = ENGINE.execute('''Delete From RecipeIngredients Where recipe_id = ? and product_id = ?''',(recipe_id, product_id))
+
+def all_tables():
+    tables = ('user', 'household', 'product', 'item', 'product_category', 'recipe', 'recipeingredients', 'scanncodes')
+
+    raw = "<html>"
+    for table in tables:
+        result = ENGINE.execute('select * from '+table)
+        answer = result.fetchall()
+
+        if answer:
+            raw += table+str(answer[0].keys())+'</br>'
+
+        for row in answer:
+            raw += str(row)
+            raw += '</br>'
+            
+        raw += '</br>'
+
+    return raw+'</html>'
+
+
 
 def example():
     '''An Example on how to use sqlalchemy with simple queries'''
