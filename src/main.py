@@ -13,7 +13,8 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', name=current_user.name)
+    table_ = sql.get_inventory(current_user.household_id)
+    return render_template('profile.html', name=current_user.name, table=table_)
 
 @main.route('/newItem', methods=['POST'])
 def newItem():

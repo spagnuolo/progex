@@ -3,4 +3,18 @@
   Welcome, {{ name }}!!! <br />
   Enter Actual Application Here
 </h1>
+<table style="width:50%;">
+  <tr>
+    <th> Item ID </th>
+    <th> Name </th>
+    <th> Due Date </th>
+  </tr>
+  {% for row in table %}
+  <tr>
+    <td>{{row.id}}</td>
+    <td>{{row.Name}}</td>
+    <td>{{row.due_date}}</td>
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}
