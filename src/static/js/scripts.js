@@ -72,6 +72,11 @@ const init = () => {
 
     loadCamera();
   }
+
+  logoutButton = document.getElementById("logout");
+  logoutButton.addEventListener("click", () => {
+    swup.destroy();
+  });
 };
 
 init();
