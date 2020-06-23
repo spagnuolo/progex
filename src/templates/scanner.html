@@ -4,6 +4,12 @@
   <div class="box">
     <div class="camera field">
       <video id="video">No camera access.</video>
+      <div id="spinner" class="loading">
+        <div class="spinner-wrapper">
+          <span class="spinner-text">LOADING</span>
+          <span class="spinner"></span>
+        </div>
+      </div>
     </div>
 
     <canvas id="canvas" hidden="true"></canvas>
@@ -20,10 +26,11 @@
         </div>
       </div>
     </form>
+    {% if pic %}
     <div class="output field mt-3">
       <img src="data:image/jpg;base64,{{pic }}" id="photo" />
     </div>
-    {% if pic %}
+
     <form method="POST" action="/newItem">
       <div class="field">
         <div class="control">

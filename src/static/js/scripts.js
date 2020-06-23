@@ -2,7 +2,7 @@ const swup = new Swup();
 
 const init = () => {
   if (document.getElementById("scanner")) {
-    var width = 480;
+    var width = "100%";
     var height = 0;
     var streaming = false;
     var video = null;
@@ -17,12 +17,14 @@ const init = () => {
       formPhoto = document.getElementById("formPhoto");
       submitDiv = document.getElementById("submitDiv");
       button = document.getElementById("button");
+      spinner = document.getElementById("spinner");
 
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: false })
         .then(function (stream) {
           video.srcObject = stream;
           video.play();
+          spinner.setAttribute("hidden", true);
         })
         .catch(function (err) {
           console.log(err);
@@ -70,6 +72,11 @@ const init = () => {
 
     loadCamera();
   }
+
+  logoutButton = document.getElementById("logout");
+  logoutButton.addEventListener("click", () => {
+    swup.destroy();
+  });
 };
 
 init();
