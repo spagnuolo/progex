@@ -27,6 +27,17 @@ def get_product_id(scancode):
         return -1
     return answer
 
+def get_all_products():
+    result = ENGINE.execute('''Select id, name From Product''')
+    answer = result.fetchall()
+
+    id_name_pairs = list()
+    for row in answer:
+        id_name_pairs.append((row[0], row[1]))
+
+    return id_name_pairs
+
+
 def link_code_product(scancode, product_id):
     result = ENGINE.execute('''Insert Into ScannCodes(code, product_id) Values(?,?); ''',(scancode, product_id))
     
@@ -73,6 +84,22 @@ def get_product_name(product_id):
 
 #inventory
 def get_inventory(household_id):
+    result = ENGINE.execute('''
+        SELECT product_id, name
+        FROM Product p, Item i
+        WHERE household_id = ?
+        AND p.id = i.product_id
+    ''', (household_id))
+    answer = result.fetchall()
+
+    id_name_pairs = list()
+    for row in answer:
+        id_name_pairs.append((row[0], row[1]))
+
+    return id_name_pairs
+
+
+def _get_inventory(household_id):
     result = ENGINE.execute('''Select i.id as id , p.name as Name, c.name as Category,i.due_date From Item i,Product p,Product_Category c Where household_id = ? and i.product_id = p.id and p.product_category = c.id ''',(household_id))
     answer = result.fetchall()
     return answer
@@ -102,11 +129,19 @@ def new_recipe(name, instructions, dificulty, time):
     result = ENGINE.execute('''Select id From Recipe Where name = ? and instructions = ? Order by id desc''', (name,instructions))
     answer = result.scalar()   
     return answer
+
+def new_ingredient(recipe_id, product_id, amount):
+    result = ENGINE.execute('''INSERT INTO RecipeIngredients(recipe_id, product_id, amount) VALUES(?,?,?); ''',(recipe_id, product_id, amount))
     
-def get_all_recipe(recipe_id):
-    result = ENGINE.execute('''Select * From Recipe where id = ?''', (recipe_id))
+def get_all_recipe():
+    result = ENGINE.execute('''Select id, name From Recipe''')
     answer = result.fetchall()
-    return answer
+
+    id_name_pairs = list()
+    for row in answer:
+        id_name_pairs.append((row[0], row[1]))
+
+    return id_name_pairs
 
 def set_name_recipe(recipe_id, name):
     result = ENGINE.execute('''Update Recipe Set name=? where id = ? ''', (name,recipe_id))
