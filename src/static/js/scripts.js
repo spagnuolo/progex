@@ -2,6 +2,12 @@ const swup = new Swup();
 
 const init = () => {
   if (document.getElementById("scanner")) {
+    // initiate Socket
+    let socket = io("http://localhost:5000");
+    socket.on("connect", function () {
+      console.log("connected...!", socket.connected);
+    });
+
     const box = document.getElementById("box");
     var width = box.offsetWidth;
     var height = 0;

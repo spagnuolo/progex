@@ -4,8 +4,12 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager
 from livereload import Server
+from flask_socketio import SocketIO
+
 import asyncio
 db = SQLAlchemy()
+
+sio = SocketIO()
 
 
 def create_app():
@@ -47,8 +51,5 @@ def create_app():
     # server = Server(app.wsgi_app)
     # server.serve()
     # return server
+    sio.init_app(app)
     return app
-
-
-if __name__ == '__main__':
-    app = create_app()

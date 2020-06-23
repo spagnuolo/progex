@@ -1,10 +1,16 @@
 """Module with main flask logic"""
-from flask import Blueprint, render_template, request, make_response, redirect
+from flask import Blueprint, render_template, request, make_response, redirect, current_app
 from flask_login import login_required, current_user
 import src.sql_queries as db
 import src.camera as camera
+from . import sio
 
 main = Blueprint('main', __name__)
+
+
+@sio.on('videostream')
+def test_connect():
+    print('I received a message!')
 
 
 @main.route('/')
