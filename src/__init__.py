@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager
-
+from livereload import Server
+import asyncio
 db = SQLAlchemy()
 
 
@@ -17,7 +18,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-    from .models import User,Household,Product,Item,Product_Category,Recipe,RecipeIngredients
+    from .models import User, Household, Product, Item, Product_Category, Recipe, RecipeIngredients
     # go to /admin to see the admin view with the tables
     admin_manager = Admin()
     admin_manager.init_app(app)
@@ -41,5 +42,13 @@ def create_app():
 
     # from .camera import camera as camera_blueprint
     # app.register_blueprint(camera_blueprint)
-
+    # asyncio.set_event_loop(asyncio.new_event_loop())
+    # app.debug = True
+    # server = Server(app.wsgi_app)
+    # server.serve()
+    # return server
     return app
+
+
+if __name__ == '__main__':
+    app = create_app()

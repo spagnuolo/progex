@@ -38,8 +38,8 @@ def signup_post():
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
-    hname = '{0}|{1}'.format(name,email)
-    hid = sql_queries.new_household(hname) 
+    hname = '{0}|{1}'.format(name, email)
+    hid = sql_queries.new_household(hname)
     user = User.query.filter_by(email=email).first()
 
     if user:

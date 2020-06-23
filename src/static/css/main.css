@@ -18,7 +18,8 @@ body {
 }
 
 .container.index .title,
-.container.index .subtitle {
+.container.index .subtitle,
+.container.index a {
   position: absolute;
   right: 0;
   top: 7rem;
@@ -26,6 +27,9 @@ body {
 
 .container.index img {
   width: 70%;
+}
+.container.index a {
+  top: 10rem;
 }
 
 .transition-fade {
@@ -165,3 +169,9 @@ html.is-animating .transition-swipe {
     transform: rotate(720deg) scale(0.6);
   }
 }
+
+/* #signup-btn {
+  position: absolute;
+  right: 0;
+  top: 25%;
+} */

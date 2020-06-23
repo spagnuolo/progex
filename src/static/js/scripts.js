@@ -2,7 +2,8 @@ const swup = new Swup();
 
 const init = () => {
   if (document.getElementById("scanner")) {
-    var width = "100%";
+    const box = document.getElementById("box");
+    var width = box.offsetWidth;
     var height = 0;
     var streaming = false;
     var video = null;
@@ -66,8 +67,10 @@ const init = () => {
       context.drawImage(video, 0, 0, width, height);
 
       var data = canvas.toDataURL("image/png");
+      console.log(data);
       /* photo.setAttribute("src", data); */
       formPhoto.setAttribute("value", data);
+      box.classList.add("loading");
     }
 
     loadCamera();
