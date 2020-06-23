@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block content %}
+<div class="column is-8 is-offset-2">
+  <h3 class="title">Add Ingredient to Recipe</h3>
+  <div class="box">
+    <form method="POST" action="/newIngredientEntry">
+
+      <div class="field">
+        <div class="control">
+          <select class="input is-large" name="recipe_id">
+            {% for recipe in recipes: %}
+            <option value="{{ recipe[0] }}">{{ recipe[1] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <select class="input is-large" name="product_id">
+            {% for product in products: %}
+            <option value="{{ product[0] }}">{{ product[1] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="value"
+            name="amount"
+            placeholder="Amount"
+          />
+        </div>
+      </div>
+
+      <button class="button is-block is-info is-large is-fullwidth">
+        Enter
+      </button>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

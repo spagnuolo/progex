@@ -62,6 +62,19 @@ def new_recipe_entry():
     return str(db.new_recipe(request.form['name'], request.form['instructions'], request.form['dificulty'], request.form['time']))
 
 
+@main.route('/newIngredient')
+def new_ingridient():
+    recipes = db.get_all_recipe()
+    products = db.get_inventory(current_user.household_id)
+    return render_template('newIngredient.html', recipes=recipes, products=products)
+
+
+@main.route('/newIngredientEntry', methods=['POST'])
+def new_ingridient_entry():
+    db.new_ingredient(request.form['recipe_id'], request.form['product_id'], request.form['amount'])
+    return profile()
+
+
 @main.route('/scanner')
 def scanner():
     return render_template('scanner.html')
