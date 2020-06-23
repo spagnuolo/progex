@@ -45,7 +45,9 @@ def barcode_locater(image_data):
                     font_scale, color, fontweight, cv2.LINE_AA)
 
     imgencode, buffer = cv2.imencode(".jpg", img)
-    image = base64.b64encode(buffer.tostring()).decode('ascii')
+    image = base64.b64encode(buffer.tostring()).decode('utf-8')
+    b64_src = 'data:image/jpg;base64,'
+    image = b64_src+image
 
     try:
         barcode = my_data.decode("ascii")

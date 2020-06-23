@@ -52,12 +52,39 @@ const init = () => {
             canvas.setAttribute("width", width);
             canvas.setAttribute("height", height);
             streaming = true;
+
+            let src = new cv.Mat(height, width, cv.CV_8UC4);
+            let dst = new cv.Mat(height, width, cv.CV_8UC1);
+            let cap = new cv.VideoCapture(video);
+
+            const FPS = 22;
+
+            id = setInterval(() => {
+              cap.read(src);
+              var context = canvas.getContext("2d");
+              canvas.width = width;
+              canvas.height = height;
+              context.drawImage(video, 0, 0, width, height);
+
+              var type = "image/png";
+              data = canvas.toDataURL("image/png");
+              //data = data.replace("data:" + type + ";base64,", "");
+
+              socket.emit("videostream", data);
+            }, 10000 / FPS);
+
+            socket.on("response_back", function (image) {
+              const image_id = document.getElementById("photo");
+              image_id.setAttribute("width", width);
+              image_id.setAttribute("height", height);
+              image_id.src = "data:image/jpg;base64" + image;
+            });
           }
         },
         false
       );
 
-      button.addEventListener(
+      /*   button.addEventListener(
         "click",
         function (ev) {
           takepicture();
@@ -74,12 +101,16 @@ const init = () => {
 
       var data = canvas.toDataURL("image/png");
       console.log(data);
-      /* photo.setAttribute("src", data); */
       formPhoto.setAttribute("value", data);
       box.classList.add("loading");
+    } */
+      cv["onRuntimeInitialized"] = () => {};
     }
 
     loadCamera();
+  } else {
+    socket.close();
+    clearInterval(id);
   }
 
   logoutButton = document.getElementById("logout");

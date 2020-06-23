@@ -4,13 +4,16 @@ from flask_login import login_required, current_user
 import src.sql_queries as db
 import src.camera as camera
 from . import sio
-
+import base64
 main = Blueprint('main', __name__)
 
 
 @sio.on('videostream')
-def test_connect():
-    print('I received a message!')
+def checkbarcode(data):
+    with open('test3.png', 'wb') as file:
+        file.write(base64.b64decode(data[22:]))
+    image, scancode = camera.barcode_locater(data)
+    sio.emit('response_back', image)
 
 
 @main.route('/')
