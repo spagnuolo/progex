@@ -63,7 +63,8 @@ def new_recipe():
 
 @main.route('/newRecipeEntry', methods=['POST'])
 def new_recipe_entry():
-    return str(db.new_recipe(request.form['name'], request.form['instructions'], request.form['dificulty'], request.form['time']))
+    db.new_recipe(request.form['name'], request.form['instructions'], request.form['dificulty'], request.form['time'])
+    return new_ingridient()
 
 
 @main.route('/newIngredient')
@@ -77,7 +78,7 @@ def new_ingridient():
 @main.route('/newIngredientEntry', methods=['POST'])
 def new_ingridient_entry():
     db.new_ingredient(request.form['recipe_id'], request.form['product_id'], request.form['amount'])
-    return profile()
+    return new_ingridient()
 
 
 @main.route('/scanner')
