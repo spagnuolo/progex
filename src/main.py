@@ -52,6 +52,15 @@ def new_item_entry():
     db.new_item(request.form['hid'], request.form['pid'], request.form['date'])
     return profile()
 
+@main.route('/newRecipe')
+def new_recipe():
+    return render_template('newRecipe.html')
+
+
+@main.route('/newRecipeEntry', methods=['POST'])
+def new_recipe_entry():
+    return str(db.new_recipe(request.form['name'], request.form['instructions'], request.form['dificulty'], request.form['time']))
+
 
 @main.route('/scanner')
 def scanner():
