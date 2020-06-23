@@ -25,7 +25,6 @@ def barcode_locater(image_data):
     If yes then return the barcode and the manipulated picture
     else try again
     """
-
     img = __base64ToImage(image_data)
     my_data = b"None"
 

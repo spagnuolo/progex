@@ -42,11 +42,11 @@ def create_app():
 
     # from .camera import camera as camera_blueprint
     # app.register_blueprint(camera_blueprint)
-    # asyncio.set_event_loop(asyncio.new_event_loop())
-    #app.debug = True
-    #server = Server(app.wsgi_app)
-    # server.serve()
-    return app
+    asyncio.set_event_loop(asyncio.new_event_loop())
+    app.debug = True
+    server = Server(app.wsgi_app)
+    server.serve()
+    return server
 
 
 if __name__ == '__main__':
