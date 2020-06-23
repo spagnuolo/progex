@@ -48,3 +48,17 @@ html.is-leaving .transition-fade {
 html.is-animating .transition-swipe {
   transform: translateY(100px);
 }
+
+#spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  background: transparent;
+}
+
+#spinner::after {
+  content: "initializing Camera";
+  color: black;
+}
