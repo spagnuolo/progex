@@ -26,10 +26,11 @@
         </div>
       </div>
     </form>
+    {% if pic %}
     <div class="output field mt-3">
       <img src="data:image/jpg;base64,{{pic }}" id="photo" />
     </div>
-    {% if pic %}
+
     <form method="POST" action="/newItem">
       <div class="field">
         <div class="control">
