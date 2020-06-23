@@ -70,6 +70,7 @@ def new_recipe_entry():
 def new_ingridient():
     recipes = db.get_all_recipe()
     products = db.get_inventory(current_user.household_id)
+    print(products)
     return render_template('newIngredient.html', recipes=recipes, products=products)
 
 

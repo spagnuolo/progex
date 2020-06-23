@@ -86,8 +86,9 @@ def get_product_name(product_id):
 def get_inventory(household_id):
     result = ENGINE.execute('''
         SELECT product_id, name
-        FROM Item NATURAL JOIN Product
+        FROM Product p, Item i
         WHERE household_id = ?
+        AND p.id = i.product_id
     ''', (household_id))
     answer = result.fetchall()
 
