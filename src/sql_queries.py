@@ -146,11 +146,10 @@ def all_tables():
         for row in answer:
             raw += str(row)
             raw += '</br>'
-            
+
         raw += '</br>'
 
     return raw+'</html>'
-
 
 
 def example():

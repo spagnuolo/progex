@@ -10,8 +10,8 @@
             class="input is-large"
             type="text"
             name="name"
-            placeholder="Item Name"
-            autofocus=""
+            value="{{ pname }}"
+            disabled
           />
         </div>
       </div>
@@ -27,46 +27,10 @@
         </div>
       </div>
 
-      <div class="field">
-        <div class="control">
-          <input
-            class="input is-large"
-            type="text"
-            name="barcode"
-            placeholder="Barcode"
-            value="{{ barcode }}"
-          />
-        </div>
-      </div>
+      <input type="text" name="pid" value="{{ pid }}" hidden/>
+      <input type="text" name="hid" value="{{ hid }}" hidden/>
 
-      <div class="field">
-        <div class="control">
-          <input
-            class="input is-large"
-            type="text"
-            name="discription"
-            placeholder="Discription"
-          />
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <select class="input is-large" name="group">
-            <option value="" selected>Other</option>
-            <option value="drink">Drink</option>
-            <option value="vegetable">Vegetable</option>
-            <option value="fruit">Fruit</option>
-            <option value="pastry">Pastry</option>
-            <option value="candy">Candy</option>
-            <option value="spice">Spice</option>
-            <option value="animal">Animal</option>
-            <option value="mushroom">Mushroom</option>
-            <option value="fastfood">Fast Food</option>
-          </select>
-        </div>
-      </div>
-
+<!-- 
       <div class="field">
         <div class="control">
           <select class="input is-large" name="recipe">
@@ -77,7 +41,7 @@
           </select>
         </div>
       </div>
-
+ -->
       <button class="button is-block is-info is-large is-fullwidth">
         Enter
       </button>

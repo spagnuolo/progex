@@ -23,27 +23,25 @@ def new_product():
 
 @main.route('/newProductEntry', methods=['POST'])
 def new_product_entry():
-    if request.method == 'POST':
-        product_id = db.new_product(request.form['name'], request.form['group'], request.form['discription'])
-        db.link_code_product(request.form['barcode'], product_id)
-    return str(request.form)
+    product_id = db.new_product(request.form['name'], request.form['group'], request.form['discription'])
+    db.link_code_product(request.form['barcode'], product_id)
+    return make_response(new_item(product_id))
 
 @main.route('/newItem', methods=['POST'])
-def newItem():
-    if request.method == 'POST':
-        code = request.form['barcode']
+def new_item(product_id):
+    code = request.form['barcode']
 
-        if db.is_scancode(code):
-            return render_template('newItem.html', barcode=code)
+    if db.is_scancode(code):
+        return render_template('newItem.html', pname=request.form['name'], pid=product_id, hid=current_user.household_id)
 
-        categories =  db.get_all_product_categories()
-        return render_template('newProduct.html', categories=categories)
+    categories =  db.get_all_product_categories()
+    return render_template('newProduct.html', categories=categories)
 
-    return render_template('newItem.html')
 
 @main.route('/newItemEntry', methods=['POST'])
 def new_item_entry():
-    return str(request.form)
+    db.new_item(request.form['hid'], request.form['pid'], request.form['date'])
+    return str(request.form)+' added to Databse.'
 
 @main.route('/scanner')
 def scanner():
