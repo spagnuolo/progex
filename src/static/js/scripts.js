@@ -24,7 +24,7 @@ const init = () => {
         .then(function (stream) {
           video.srcObject = stream;
           video.play();
-          //spinner.setAttribute("hidden", true);
+          spinner.setAttribute("hidden", true);
         })
         .catch(function (err) {
           console.log(err);

@@ -1,11 +1,15 @@
 {% extends "base.html" %} {% block content %}
 <div id="scanner" class="column is-6 is-offset-3">
-  
   <h3 class="title">Scan Product</h3>
   <div class="box">
     <div class="camera field">
       <video id="video">No camera access.</video>
-            <img id="spinner"  src="{{url_for('static',filename='images/loading.svg')}}"></img>
+      <div id="spinner" class="loading">
+        <div class="spinner-wrapper">
+          <span class="spinner-text">LOADING</span>
+          <span class="spinner"></span>
+        </div>
+      </div>
     </div>
 
     <canvas id="canvas" hidden="true"></canvas>
