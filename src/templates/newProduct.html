@@ -23,7 +23,10 @@
             type="text"
             name="barcode"
             placeholder="Barcode"
+            {% if barcode %}
             value="{{ barcode }}"
+            readonly="readonly"
+            {% endif %}
           />
         </div>
       </div>
