@@ -76,6 +76,10 @@ def get_inventory(household_id):
     result = ENGINE.execute('''Select i.id as id , p.name as Name, c.name as Category,i.due_date From Item i,Product p,Product_Category c Where household_id = ? and i.product_id = p.id and p.product_category = c.id ''',(household_id))
     answer = result.fetchall()
     return answer
+def get_inventory_all():
+    result = ENGINE.execute('''Select * From Item i''')
+    answer = result.fetchall()
+    return answer
 
 def get_inventory_by_product(household_id):
     result = ENGINE.execute('''Select p.name as Name, c.name as Category,Count(i.id) as Amount From Item i,Product p,Product_Category c Where household_id = ? and i.product_id = p.id and p.id = c.product_id Group By i.id''',(household_id))
@@ -87,7 +91,7 @@ def get_invetory_for_Recipe(household_id,recipe_id):
     Where household_id = ? and p.id = c.product_id and p.id = r.product_id and r.recipe_id = ? Group By p.id''',(household_id, recipe_id))
     answer = result.fetchall()
     return answer	    
-#item
+#item correct duedate format is 2020-06-23 13:45:00
 def new_item(household_id, product_id, due_date):
     result = ENGINE.execute('''INSERT INTO Item(household_id, product_id, due_date) VALUES(?,?,?); ''',(household_id,product_id,due_date))
 
