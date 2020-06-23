@@ -27,7 +27,7 @@ def new_product(barcode=''):
 
 @main.route('/newProductEntry', methods=['POST'])
 def new_product_entry():
-    product_id = db.new_product(request.form['name'], request.form['group'], request.form['discription'])
+    product_id = db.new_product(request.form['name'], db.get_product_category_id_byname(request.form['group']), request.form['discription'])
     db.link_code_product(request.form['barcode'], product_id)
     return make_response(new_item())
 
