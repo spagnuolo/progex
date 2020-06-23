@@ -22,14 +22,15 @@ def profile():
 @main.route('/newProduct')
 @login_required
 def new_product(barcode=''):
-    categories =  db.get_all_product_categories()
+    categories = db.get_all_product_categories()
     return render_template('newProduct.html', categories=categories, barcode=barcode)
 
 
 @main.route('/newProductEntry', methods=['POST'])
 @login_required
 def new_product_entry():
-    product_id = db.new_product(request.form['name'], db.get_product_category_id_byname(request.form['group']), request.form['discription'])
+    product_id = db.new_product(request.form['name'], db.get_product_category_id_byname(
+        request.form['group']), request.form['discription'])
     db.link_code_product(request.form['barcode'], product_id)
     return make_response(new_item())
 
@@ -44,7 +45,7 @@ def new_item():
             pid = db.get_product_id(code)
             pname = db.get_product_name(pid)
             return render_template('newItem.html', pname=pname, pid=pid, hid=current_user.household_id)
-        
+
         return new_product(barcode=request.form['barcode'])
 
     return redirect(new_product())
@@ -55,6 +56,7 @@ def new_item():
 def new_item_entry():
     db.new_item(request.form['hid'], request.form['pid'], request.form['date'])
     return profile()
+
 
 @main.route('/newRecipe')
 def new_recipe():
@@ -76,7 +78,8 @@ def new_ingridient():
 
 @main.route('/newIngredientEntry', methods=['POST'])
 def new_ingridient_entry():
-    db.new_ingredient(request.form['recipe_id'], request.form['product_id'], request.form['amount'])
+    db.new_ingredient(
+        request.form['recipe_id'], request.form['product_id'], request.form['amount'])
     return profile()
 
 
@@ -93,6 +96,7 @@ def scan():
         image, scancode = camera.barcode_locater(request.form['photo'])
 
     return make_response(render_template('scanner.html', pic=image, barcode=scancode))
+
 
 @main.route('/dbraw')
 @login_required

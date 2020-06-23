@@ -5,7 +5,8 @@
     <form method="POST" action="/newItemEntry">
       <div class="field">
         <div class="control">
-          <input required
+          <input
+            required
             class="input is-large"
             type="text"
             name="name"
@@ -17,7 +18,8 @@
 
       <div class="field">
         <div class="control">
-          <input required 
+          <input
+            required
             class="input is-large"
             type="date"
             name="date"
@@ -26,10 +28,10 @@
         </div>
       </div>
 
-      <input type="text" name="pid" value="{{ pid }}" hidden/>
-      <input type="text" name="hid" value="{{ hid }}" hidden/>
+      <input type="text" name="pid" value="{{ pid }}" hidden />
+      <input type="text" name="hid" value="{{ hid }}" hidden />
 
-<!-- 
+      <!-- 
       <div class="field">
         <div class="control">
           <select class="input is-large" name="recipe">
