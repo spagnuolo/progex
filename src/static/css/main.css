@@ -105,7 +105,7 @@ html.is-animating .transition-swipe {
   margin: 16px 0 0 35px;
   font-size: 9px;
   font-family: Arial;
-  color: #bbb;
+  color: #48c774;
   letter-spacing: 1px;
   font-weight: 700;
 }
@@ -115,7 +115,7 @@ html.is-animating .transition-swipe {
   position: absolute;
   left: 45%;
   top: 40%;
-  border: 25px solid rgba(100, 100, 100, 0.2);
+  border: 25px solid rgba(72, 199, 116, 0.4);
   width: 1px;
   height: 1px;
   border-left-color: transparent;
