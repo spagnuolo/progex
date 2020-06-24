@@ -75,9 +75,15 @@ const init = () => {
 
             socket.on("response_back", function (image) {
               const image_id = document.getElementById("photo");
+              const barcode_input = document.getElementById("barcode");
+              const newItem_button = document.getElementById("newItem-btn");
+              video.setAttribute("hidden", true);
               image_id.setAttribute("width", width);
               image_id.setAttribute("height", height);
-              image_id.src = "data:image/jpg;base64" + image;
+              image_id.src = image["image"];
+              formPhoto.value = image["image"];
+              barcode_input.value = image["code"];
+              newItem_button.innerText = "Use this barcode: " + image["code"];
             });
           }
         },
@@ -109,8 +115,12 @@ const init = () => {
 
     loadCamera();
   } else {
-    socket.close();
-    clearInterval(id);
+    try {
+      socket.close();
+      clearInterval(id);
+    } catch (error) {
+      console.log("ERR");
+    }
   }
 
   logoutButton = document.getElementById("logout");

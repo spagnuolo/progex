@@ -4,25 +4,17 @@
   <div id="box" class="box">
     <div class="camera field">
       <video id="video">No camera access.</video>
-      {% if not pic %}
       <div id="spinner" class="loading">
         <div class="spinner-wrapper">
           <span class="spinner-text">LOADING</span>
           <span class="spinner"></span>
         </div>
       </div>
-      {% endif %}
     </div>
 
     <canvas id="canvas" hidden="true"></canvas>
     <form method="POST" action="/scan">
       <div class="field">
-        <button
-          id="button"
-          class="button is-block is-info is-large is-fullwidth"
-        >
-          Scan
-        </button>
         <div class="control">
           <input id="formPhoto" name="photo" hidden />
         </div>
@@ -31,35 +23,23 @@
     <div class="output field mt-3">
       <img id="photo" />
     </div>
-    {% if pic %}
 
     <form method="POST" action="/newItem">
       <div class="field">
         <div class="control">
-          <input
-            id="formPhoto"
-            value="data:image/jpg;base64,{{pic }}"
-            name="photo"
-            hidden
-          />
-          <input id="barcode" name="barcode" value="{{barcode}}" hidden />
+          <input id="formPhoto" name="photo" hidden />
+          <input id="barcode" name="barcode" hidden />
         </div>
         <div id="submitDiv">
-          {% if barcode != "None" %}
-          <button class="button is-block is-info is-large is-fullwidth">
-            Use this barcode: {{barcode}}
+          <button
+            id="newItem-btn"
+            class="button is-block is-info is-large is-fullwidth"
+          >
+            Add Barcode manually
           </button>
-          {% else %}
-          <div class="notification is-danger">
-            Could not find a Barcode, please try again or
-            <button class="btn-as-link" type="submit">enter it manually</button>
-          </div>
-
-          {% endif %}
         </div>
       </div>
     </form>
-    {% endif %}
   </div>
 </div>
 <script type="text/javascript" src="../static/js/scanner.js"></script>

@@ -13,7 +13,8 @@ def checkbarcode(data):
     with open('test3.png', 'wb') as file:
         file.write(base64.b64decode(data[22:]))
     image, scancode = camera.barcode_locater(data)
-    sio.emit('response_back', image)
+    if scancode != "None":
+        sio.emit('response_back', {"image": image, "code": scancode})
 
 
 @main.route('/')
