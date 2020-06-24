@@ -1,5 +1,5 @@
 """Module with main flask logic"""
-from flask import Blueprint, render_template, request, make_response, redirect, current_app
+from flask import Blueprint, render_template, request, make_response, redirect, current_app, flash
 from flask_login import login_required, current_user
 import src.sql_queries as db
 import src.camera as camera
@@ -14,7 +14,13 @@ def checkbarcode(data):
         file.write(base64.b64decode(data[22:]))
     image, scancode = camera.barcode_locater(data)
     if scancode != "None":
-        sio.emit('response_back', {"image": image, "code": scancode})
+        response = {"image": image, "code": scancode}
+        id = db.is_scancode(scancode)
+        if id:
+            pid = db.get_product_id(scancode)
+            pname = db.get_product_name(pid)
+            response["message"] = pname
+        sio.emit('response_back', response)
 
 
 @main.route('/')

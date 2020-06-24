@@ -77,6 +77,12 @@ const init = () => {
               const image_id = document.getElementById("photo");
               const barcode_input = document.getElementById("barcode");
               const newItem_button = document.getElementById("newItem-btn");
+              const notification = document.getElementById("notification");
+              if (typeof image["message"] !== "undefined") {
+                notification.innerText = image["message"];
+                notification.removeAttribute("hidden");
+              }
+
               video.setAttribute("hidden", true);
               image_id.setAttribute("width", width);
               image_id.setAttribute("height", height);
