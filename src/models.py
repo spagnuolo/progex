@@ -25,24 +25,28 @@ class Household(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
 
+
 class Product(db.Model):
     __tablename__ = 'Product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     product_category = db.Column(db.Integer, ForeignKey('Product_Category.id'))
     description = db.Column(db.String(1000))
-    
+
+
 class Item(db.Model):
     __tablename__ = 'Item'
     id = db.Column(db.Integer, primary_key=True)
-    due_date = db.Column(db.DateTime)
+    due_date = db.Column(db.Date)
     product_id = db.Column(db.Integer, ForeignKey('Product.id'))
     household_id = db.Column(db.Integer, ForeignKey('Household.id'))
+
 
 class Product_Category(db.Model):
     __tablename__ = 'Product_Category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
+
 
 class Recipe(db.Model):
     __tablename__ = 'Recipe'
@@ -52,13 +56,18 @@ class Recipe(db.Model):
     dificulty = db.Column(db.Integer)
     time = db.Column(db.Integer)
 
+
 class RecipeIngredients(db.Model):
     __tablename__ = 'RecipeIngredients'
-    recipe_id = db.Column(db.Integer, ForeignKey('Recipe.id'), primary_key=True)
-    product_id = db.Column(db.Integer, ForeignKey('Product.id'), primary_key=True)
+    recipe_id = db.Column(db.Integer, ForeignKey(
+        'Recipe.id'), primary_key=True)
+    product_id = db.Column(db.Integer, ForeignKey(
+        'Product.id'), primary_key=True)
     amount = db.Column(db.Integer)
+
 
 class ScannCodes(db.Model):
     __tablename__ = 'ScannCodes'
+
     code = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, ForeignKey('Product.id'))

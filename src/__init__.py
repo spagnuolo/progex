@@ -12,6 +12,13 @@ db = SQLAlchemy()
 sio = SocketIO()
 
 
+class AdminView(ModelView):
+    def __init__(self, model, *args, **kwargs):
+        self.column_list = [c.key for c in model.__table__.columns]
+        self.form_columns = self.column_list
+        super(AdminView, self).__init__(model, *args, **kwargs)
+
+
 def create_app():
     app = Flask(__name__)
 
@@ -22,7 +29,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-    from .models import User, Household, Product, Item, Product_Category, Recipe, RecipeIngredients
+    from .models import User, Household, Product, Item, Product_Category, Recipe, RecipeIngredients, ScannCodes
     # go to /admin to see the admin view with the tables
     admin_manager = Admin()
     admin_manager.init_app(app)
@@ -33,6 +40,7 @@ def create_app():
     admin_manager.add_view(ModelView(Product_Category, db.session))
     admin_manager.add_view(ModelView(Recipe, db.session))
     admin_manager.add_view(ModelView(RecipeIngredients, db.session))
+    admin_manager.add_view(AdminView(ScannCodes, db.session))
 
     @login_manager.user_loader
     def load_user(user_id):

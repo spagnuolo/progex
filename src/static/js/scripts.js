@@ -57,7 +57,7 @@ const init = () => {
             let dst = new cv.Mat(height, width, cv.CV_8UC1);
             let cap = new cv.VideoCapture(video);
 
-            const FPS = 22;
+            const FPS = 60;
 
             id = setInterval(() => {
               cap.read(src);
@@ -116,7 +116,6 @@ const init = () => {
     loadCamera();
   } else {
     try {
-      socket.close();
       clearInterval(id);
     } catch (error) {
       console.log("ERR");

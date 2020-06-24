@@ -69,11 +69,13 @@ def new_item_entry():
 
 
 @main.route('/newRecipe')
+@login_required
 def new_recipe():
     return render_template('newRecipe.html')
 
 
 @main.route('/newRecipeEntry', methods=['POST'])
+@login_required
 def new_recipe_entry():
     db.new_recipe(request.form['name'], request.form['instructions'],
                   request.form['dificulty'], request.form['time'])
@@ -81,6 +83,7 @@ def new_recipe_entry():
 
 
 @main.route('/newIngredient')
+@login_required
 def new_ingridient():
     recipes = db.get_all_recipe()
     products = db.get_inventory(current_user.household_id)
@@ -89,6 +92,7 @@ def new_ingridient():
 
 
 @main.route('/newIngredientEntry', methods=['POST'])
+@login_required
 def new_ingridient_entry():
     db.new_ingredient(
         request.form['recipe_id'], request.form['product_id'], request.form['amount'])

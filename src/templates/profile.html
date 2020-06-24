@@ -1,20 +1,19 @@
 {% extends "base.html" %} {% block content %}
-<h1 class="title">
-  Welcome, {{ name }}!!! <br />
-  Enter Actual Application Here
-</h1>
-<table class="table">
-  <tr>
-    <th> Item ID </th>
-    <th> Name </th>
-    <th> Due Date </th>
-  </tr>
-  {% for row in table %}
-  <tr>
-    <td>{{row.id}}</td>
-    <td>{{row.Name}}</td>
-    <td>{{row.due_date}}</td>
-  </tr>
-  {% endfor %}
-</table>
+<h1 class="title">Welcome, {{ name }}!!! <br /></h1>
+<form id="items" method="POST" action="/newItem">
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>#</th>
+      <th>Add</th>
+    </tr>
+    {% for row in table %}
+    <tr>
+      <td>{{row[1]}}</td>
+      <td>{{row[2]}}</td>
+      <td><a onclick="document.getElementById('items').submit();">+</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</form>
 {% endblock %}
