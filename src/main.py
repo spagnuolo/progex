@@ -53,10 +53,12 @@ def profile():
     for item in table_:
         name = item[1]
         due_date__string = item[2]
-        due_date = datetime.datetime.strptime(due_date__string, "%Y-%M-%d")
+        due_date = datetime.datetime.strptime(due_date__string, "%Y-%m-%d")
         today = datetime.datetime.today()
-
-        if due_date <= today:
+        print(due_date__string)
+        print(due_date.date())
+        print(today.date())
+        if due_date.date() <= today.date():
             expired.append((name, due_date__string))
 
     return render_template('profile.html', name=current_user.name, table=table_, expired=expired)
