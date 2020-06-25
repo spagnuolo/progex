@@ -12,11 +12,14 @@
       </tr>
     </thead>
     {% for row in inventory %}
-    <tr class="product--row">
+    <tr>
       <td id="{{row[0]}}">{{row[1]}}</td>
       <td id="{{row[0]}}">{{row[2]}}</td>
       <td id="{{row[0]}}">{{row[3]}}</td>
       <td>
+        <a class="product--row" id="{{row[0]}}"
+          ><i id="{{row[0]}}" class="fas fa-info-circle"></i
+        ></a>
         <a class="product--delete" id="{{row[0]}}"
           ><i id="{{row[0]}}" class="fas fa-trash"></i
         ></a>
