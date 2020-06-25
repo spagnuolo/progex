@@ -264,7 +264,7 @@ def allProducts():
     """
     inventory = db.get_inventory_by_product(current_user.household_id)
     print(inventory)
-    return render_template('tableviews/allProducts.html', inventory=inventory)
+    return render_template('tableViews/allProducts.html', inventory=inventory)
 
 
 @main.route('/productDetails/<product_id>')
