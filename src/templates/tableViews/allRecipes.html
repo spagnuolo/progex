@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block content %}
+
+<h1 class="title">
+  All your Recipes
+  <a href="{{url_for('main.new_recipe')}}" class="button is-info">Add</a> <br />
+</h1>
+<form id="items" method="POST" action="/recipeDetails">
+  <table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Difficulty</th>
+        <th>Duration</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    {% for row in recipes %}
+    <tr>
+      <td>{{row[0]}}</td>
+      <td>{{row[1]}}</td>
+      <td>{{row[2]}}</td>
+      <td>{{row[3]}}</td>
+      <td>
+        <a class="recipes--submitLink" id="{{row[0]}}"
+          ><i id="{{row[0]}}" class="fas fa-info-circle"></i
+        ></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</form>
+
+<script></script>
+{% endblock %}

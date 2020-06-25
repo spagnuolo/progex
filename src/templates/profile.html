@@ -1,12 +1,14 @@
 {% extends "base.html" %} {% block content %}
 <h1 class="title">Welcome, {{ name }}!!! <br /></h1>
-<form id="items" method="POST" action="/newItem">
-  <table class="table">
-    <tr>
-      <th>Name</th>
-      <th>#</th>
-      <th>Add</th>
-    </tr>
+<!-- <form id="items" method="POST" action="/newItem">
+  <table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>#</th>
+        <th>Add</th>
+      </tr>
+    </thead>
     {% for row in table %}
     <tr>
       <td>{{row[1]}}</td>
@@ -15,5 +17,69 @@
     </tr>
     {% endfor %}
   </table>
-</form>
+</form> -->
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-8">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <a
+          href="{{ url_for('main.allProducts') }}"
+          class="tile is-child notification is-primary"
+        >
+          <p class="title">Inventory</p>
+          <p class="subtitle">Show your current inventory</p>
+        </a>
+        <a
+          href="{{ url_for('main.all_recipes') }}"
+          class="tile is-child notification has-background-link"
+        >
+          <p class="title">Recipes</p>
+          <p class="subtitle">Show all your Recipes</p>
+        </a>
+      </div>
+      <div class="tile is-parent">
+        <a
+          href="{{ url_for('main.scanner') }}"
+          class="tile is-child notification is-info"
+        >
+          <p class="title">Add new Item</p>
+          <figure class="image is-4by3">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png"
+            />
+          </figure>
+        </a>
+      </div>
+    </div>
+    {% if expired %}
+    <div class="tile is-parent">
+      <a class="tile is-child notification is-danger">
+        <p class="title">Attention</p>
+        <p class="subtitle">
+          {% for pired in expired %}{{pired[0]}} will soon expire
+          ({{pired[1]}})<br />
+          {% endfor %}
+        </p>
+        <div class="content">
+          <!-- Content -->
+        </div>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+  <div class="tile is-parent">
+    <a
+      href="{{ url_for('main.settings') }}"
+      class="tile is-child notification has-background-success-dark"
+    >
+      <div class="content">
+        <p class="title">Settings</p>
+        <p class="subtitle">Manage Products and Categorys</p>
+        <div class="content">
+          <!-- Content -->
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
 {% endblock %}

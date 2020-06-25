@@ -1,6 +1,8 @@
 const swup = new Swup();
 
 const init = () => {
+  swup.cache.empty();
+
   if (document.getElementById("scanner")) {
     // initiate Socket
     let socket = io("http://localhost:5000");
@@ -96,31 +98,40 @@ const init = () => {
         false
       );
 
-      /*   button.addEventListener(
-        "click",
-        function (ev) {
-          takepicture();
-        },
-        false
-      );
-    }
-
-    function takepicture() {
-      var context = canvas.getContext("2d");
-      canvas.width = width;
-      canvas.height = height;
-      context.drawImage(video, 0, 0, width, height);
-
-      var data = canvas.toDataURL("image/png");
-      console.log(data);
-      formPhoto.setAttribute("value", data);
-      box.classList.add("loading");
-    } */
       cv["onRuntimeInitialized"] = () => {};
     }
 
     loadCamera();
   } else {
+    function loadRecipeListener() {
+      var elements = document.getElementsByClassName("recipes--submitLink");
+      for (var i = 0, len = elements.length; i < len; i++) {
+        elements[i].onclick = function (e) {
+          window.location.href = "/recipeDetails/" + e.target.id;
+        };
+      }
+    }
+    function loadProductDeleteListener() {
+      var elements = document.getElementsByClassName("product--delete");
+      for (var i = 0, len = elements.length; i < len; i++) {
+        elements[i].onclick = function (e) {
+          window.location.href = "/deleteItem/" + e.target.id;
+        };
+      }
+    }
+
+    function loadInventoryDetailsListener() {
+      var elements = document.getElementsByClassName("product--row");
+      for (var i = 0, len = elements.length; i < len; i++) {
+        elements[i].onclick = function (e) {
+          console.log(e.target.id);
+          window.location.href = "/productDetails/" + e.target.id;
+        };
+      }
+    }
+    loadRecipeListener();
+    loadProductDeleteListener();
+    loadInventoryDetailsListener();
     try {
       clearInterval(id);
     } catch (error) {

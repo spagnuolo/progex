@@ -105,7 +105,7 @@ def get_product_name(product_id):
 
 def get_inventory(household_id):
     result = ENGINE.execute('''
-        SELECT product_id, name,count(product_id)
+        SELECT product_id, name,due_date,count(product_id)
         FROM Product p, Item i
         WHERE household_id = ?
         AND p.id = i.product_id group by product_id
@@ -114,7 +114,6 @@ def get_inventory(household_id):
 
     id_name_pairs = list()
     for row in answer:
-        print(row)
         id_name_pairs.append((row[0], row[1], row[2]))
 
     return id_name_pairs
@@ -133,16 +132,23 @@ def get_inventory_all():
     return answer
 
 
+def get_inventory_details(household_id, product_id):
+    result = ENGINE.execute(
+        '''SELECT i.due_date, p.name,sc.code from Item i, Product p,ScannCodes sc WHERE i.product_id = p.id AND i.household_id = ? AND i.product_id = ? AND sc.product_id = ? ''', (household_id, product_id, product_id))
+    answer = result.fetchall()
+    return answer
+
+
 def get_inventory_by_product(household_id):
     result = ENGINE.execute(
-        '''Select p.name as Name, c.name as Category,Count(i.id) as Amount From Item i,Product p,Product_Category c Where household_id = ? and i.product_id = p.id and p.id = c.product_id Group By i.id''', (household_id))
+        '''Select p.id, p.name as Name, c.name as Category,Count(i.id) as Amount From Item i,Product p,Product_Category c Where household_id = ? and i.product_id = p.id and p.product_category = c.id Group By i.product_id''', (household_id))
     answer = result.fetchall()
     return answer
 
 
 def get_invetory_for_Recipe(household_id, recipe_id):
     result = ENGINE.execute('''Select p.name as Name, c.name as Category,Count(i.id) as Amount_stored, r.amount as Amount_needed From Product p,Product_Category c, RecipeIngredients r Left Join Item i on p.id = i.product_id
-    Where household_id = ? and p.id = c.product_id and p.id = r.product_id and r.recipe_id = ? Group By p.id''', (household_id, recipe_id))
+    Where household_id = ? and p.product_category = c.id and p.id = r.product_id and r.recipe_id = ? Group By p.id''', (household_id, recipe_id))
     answer = result.fetchall()
     return answer
 # item correct duedate format is 2020-06-23 13:45:00
@@ -169,14 +175,21 @@ def new_ingredient(recipe_id, product_id, amount):
 
 
 def get_all_recipe():
-    result = ENGINE.execute('''Select id, name From Recipe''')
+    result = ENGINE.execute('''Select id, name,dificulty,time From Recipe''')
     answer = result.fetchall()
 
     id_name_pairs = list()
     for row in answer:
-        id_name_pairs.append((row[0], row[1]))
+        id_name_pairs.append((row[0], row[1], row[2], row[3]))
 
     return id_name_pairs
+
+
+def get_recipe_details(recipe_id):
+    result = ENGINE.execute(
+        '''Select instructions FROM Recipe WHERE id = ?''', recipe_id)
+    answer = result.fetchall()
+    return answer
 
 
 def set_name_recipe(recipe_id, name):

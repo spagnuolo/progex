@@ -33,13 +33,13 @@ def create_app():
     # go to /admin to see the admin view with the tables
     admin_manager = Admin()
     admin_manager.init_app(app)
-    admin_manager.add_view(ModelView(User, db.session))
-    admin_manager.add_view(ModelView(Household, db.session))
-    admin_manager.add_view(ModelView(Product, db.session))
-    admin_manager.add_view(ModelView(Item, db.session))
-    admin_manager.add_view(ModelView(Product_Category, db.session))
-    admin_manager.add_view(ModelView(Recipe, db.session))
-    admin_manager.add_view(ModelView(RecipeIngredients, db.session))
+    admin_manager.add_view(AdminView(User, db.session))
+    admin_manager.add_view(AdminView(Household, db.session))
+    admin_manager.add_view(AdminView(Product, db.session))
+    admin_manager.add_view(AdminView(Item, db.session))
+    admin_manager.add_view(AdminView(Product_Category, db.session))
+    admin_manager.add_view(AdminView(Recipe, db.session))
+    admin_manager.add_view(AdminView(RecipeIngredients, db.session))
     admin_manager.add_view(AdminView(ScannCodes, db.session))
 
     @login_manager.user_loader
@@ -55,8 +55,8 @@ def create_app():
     # from .camera import camera as camera_blueprint
     # app.register_blueprint(camera_blueprint)
     # asyncio.set_event_loop(asyncio.new_event_loop())
-    # app.debug = True
-    # server = Server(app.wsgi_app)
+    #app.debug = True
+    #server = Server(app.wsgi_app)
     # server.serve()
     # return server
     sio.init_app(app)

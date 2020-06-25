@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block content %} {% with messages =
+get_flashed_messages() %} {% if messages %}
+<div id="notification" class="notification is-info">
+  <button id="delete" class="delete"></button>
+  {{ messages[0] }}
+</div>
+{% endif %} {% endwith %}
+
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-8">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <a
+          href="{{ url_for('main.newCategory') }}"
+          class="tile is-child notification is-primary"
+        >
+          <p class="title">Add Category</p>
+          <p class="subtitle">Add a new Category Type</p>
+        </a>
+        <a class="tile is-child notification has-background-link">
+          <p class="title">Add Member to Household</p>
+          <p class="subtitle">Add a new Member to your account</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  let deleteBtn = document.getElementById("delete");
+  let notification = document.getElementById("notification");
+  deleteBtn.addEventListener("click", function () {
+    notification.remove();
+  });
+</script>
+{% endblock %}

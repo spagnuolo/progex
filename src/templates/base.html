@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Grocery Management App</title>
+    <title>Private Grocery Manager</title>
     <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
 
     <link
@@ -15,9 +15,41 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/main.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/profile.css') }}"
+    />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   </head>
 
   <body>
+    {% if current_user.is_authenticated %}
+    <input type="checkbox" id="check"></input>
+    <label for ="check">
+      <i class="fas fa-bars" id="sidebar-btn"></i>
+      <i class="fas fa-times" id="sidebar-cancel"></i>
+      </label>
+    <div class="sidebar">
+      <header>My Dashboard</header>
+      <ul>
+        <li>
+          <a href="#"><i class="fas fa-qrcode"></i> Overview </a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-qrcode"></i> Scanner </a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-qrcode"></i> Products </a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-qrcode"></i> Items </a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-qrcode"></i> Recipes </a>
+        </li>
+      </ul>
+    </div>
+    {% endif %}
     <section class="hero is-success is-fullheight">
       <div class="hero-head">
         <nav class="navbar">
@@ -63,6 +95,15 @@
       </div>
     </section>
   </body>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <i>Private Grocery Manager</i> by Barbar <strong>Ahmad</strong>,Giuliano
+        <strong>Spagnuolo</strong>,Julius <strong> Sange</strong>.
+      </p>
+      <p>Programing Exercise SS 2020</p>
+    </div>
+  </footer>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="../static/js//opencv.js"></script>

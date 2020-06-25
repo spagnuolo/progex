@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block content %}
+<h1 class="title">Ingredients</h1>
+<table class="table is-fullwidth is-striped is-hoverable">
+  <thead>
+    <tr>
+      <th>Ingredient</th>
+      <th>Amount in Stock</th>
+      <th>Amount Needed</th>
+    </tr>
+  </thead>
+  {% for tory in inventory %}
+  <tr {% if tory[2] < tory[3] %} class="has-background-danger" {% endif %}>
+    <td>{{tory[0]}}</td>
+    <td>{{tory[2]}}</td>
+    <td>{{tory[3]}}</td>
+  </tr>
+  {% endfor %}
+</table>
+<div class="column is-8 is-offset-2">
+  <h3 class="title">Details</h3>
+  <div class="box">
+    <form method="POST" action="/newItemEntry">
+      <div class="field">
+        <div class="control">
+          <textarea
+            disabled
+            class="textarea"
+            value="{{details}} "
+            placeholder="e.g. Hello world"
+          >
+{{details[0][0]}} </textarea
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

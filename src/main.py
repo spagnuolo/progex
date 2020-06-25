@@ -1,8 +1,9 @@
 """Module with main flask logic"""
-from flask import Blueprint, render_template, request, make_response, redirect, current_app, flash
+from flask import Blueprint, render_template, request, make_response, redirect, current_app, flash, json
 from flask_login import login_required, current_user
 import src.sql_queries as db
 import src.camera as camera
+import datetime
 from . import sio
 import base64
 main = Blueprint('main', __name__)
@@ -32,7 +33,17 @@ def index():
 @login_required
 def profile():
     table_ = db.get_inventory(current_user.household_id)
-    return render_template('profile.html', name=current_user.name, table=table_)
+    expired = []
+    for item in table_:
+        name = item[1]
+        due_date__string = item[2]
+        due_date = datetime.datetime.strptime(due_date__string, "%Y-%M-%d")
+        today = datetime.datetime.today()
+
+        if due_date <= today:
+            expired.append((name, due_date__string))
+
+    return render_template('profile.html', name=current_user.name, table=table_, expired=expired)
 
 
 @main.route('/newProduct')
@@ -72,6 +83,33 @@ def new_item():
 def new_item_entry():
     db.new_item(request.form['hid'], request.form['pid'], request.form['date'])
     return profile()
+
+
+@main.route('/deleteItem/<item_id>')
+@login_required
+def delete_item(item_id):
+    print(item_id)
+    db.delete_item(item_id)
+    inventory = db.get_inventory_by_product(current_user.household_id)
+    return render_template('tableviews/allProducts.html', inventory=inventory)
+####################################
+# Reciepes
+####################################
+
+
+@main.route('/allRecipes')
+def all_recipes():
+    recipes = db.get_all_recipe()
+    return render_template('tableViews/allRecipes.html', recipes=recipes)
+
+
+@main.route('/recipeDetails/<recipe_id>', methods=['POST', 'GET'])
+def recipe_details(recipe_id):
+    details = db.get_recipe_details(recipe_id)
+    inventory = db.get_invetory_for_Recipe(
+        current_user.household_id, recipe_id)
+    print(details)
+    return render_template('recipeDetails.html', details=details, inventory=inventory)
 
 
 @main.route('/newRecipe')
@@ -125,6 +163,48 @@ def scan():
 def dbraw():
     db.delete_scancode(42141112)
     return db.all_tables()
+
+
+####################################
+# Products
+####################################
+@main.route('/allProducts')
+@login_required
+def allProducts():
+    inventory = db.get_inventory_by_product(current_user.household_id)
+    print(inventory)
+    return render_template('tableviews/allProducts.html', inventory=inventory)
+
+
+@main.route('/productDetails/<product_id>')
+@login_required
+def product_details(product_id):
+    details = db.get_inventory_details(current_user.household_id, product_id)
+    name = details[0][1]
+    print(details)
+    return render_template('productDetails.html', details=details, name=name)
+
+####################################
+# Settings
+####################################
+
+
+@main.route("/settings")
+@login_required
+def settings():
+    categories = db.get_all_product_categories()
+
+    return render_template('settings/settings.html', categories=categories)
+
+
+@main.route("/settings/newCategory", methods=['POST', 'GET'])
+def newCategory():
+    if request.method == 'POST':
+        category = db.new_product_category(request.form['category'])
+        flash("Category added successfully")
+        return render_template('settings/settings.html')
+    categories = db.get_all_product_categories()
+    return render_template('settings/newCategory.html', categories=categories)
 
 
 def info(text):

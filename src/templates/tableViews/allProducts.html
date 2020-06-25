@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+
+<h1 class="title">Your current Inventory!!! <br /></h1>
+<form id="items" method="POST" action="/newItem">
+  <table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>In Stock</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    {% for row in inventory %}
+    <tr class="product--row">
+      <td id="{{row[0]}}">{{row[1]}}</td>
+      <td id="{{row[0]}}">{{row[2]}}</td>
+      <td id="{{row[0]}}">{{row[3]}}</td>
+      <td>
+        <a class="product--delete" id="{{row[0]}}"
+          ><i id="{{row[0]}}" class="fas fa-trash"></i
+        ></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</form>
+{% endblock %}
