@@ -13,6 +13,7 @@ from PIL import Image
 
 
 def __base64ToImage(base64_string):
+
     imgdata = base64.b64decode(str(base64_string[22:]))
     image = Image.open(io.BytesIO(imgdata))
     #nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
@@ -23,7 +24,8 @@ def barcode_locater(image_data):
     """
     Gets the Picture and tries to find a barcode.
     If yes then return the barcode and the manipulated picture
-    else try again
+    else try again. Returns the Image and the barcode if found, else 
+    just returns the image
     """
     img = __base64ToImage(image_data)
     my_data = b"None"

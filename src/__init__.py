@@ -13,6 +13,10 @@ sio = SocketIO()
 
 
 class AdminView(ModelView):
+    """
+    Overwrite View of the Admin Dashboard to show Primary Keys and foreign Keys
+    """
+
     def __init__(self, model, *args, **kwargs):
         self.column_list = [c.key for c in model.__table__.columns]
         self.form_columns = self.column_list
@@ -20,6 +24,11 @@ class AdminView(ModelView):
 
 
 def create_app():
+    """Initialize The Flask application.
+
+    Returns:
+        [app]: returns the Flask application
+    """
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = 'djfioasdfjomu0dvhiadfjcpa'

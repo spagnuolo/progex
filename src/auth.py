@@ -9,11 +9,20 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
 def login():
+    """Returns the template for the login Page.
+
+    Returns:
+        [render_template]: [login.html]
+    """
     return render_template('auth/login.html')
 
 
 @auth.route('/login', methods=['POST'])
 def login_post():
+    """
+    Login controller. Checks if Email and Password are in the database 
+    and returns the profile view if successfull. 
+    """
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
@@ -30,11 +39,22 @@ def login_post():
 
 @auth.route('/signup')
 def signup():
+    """
+    Controller for the signup Process.
+    Returns the Signup Viev
+    """
     return render_template('auth/signup.html')
 
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
+    """
+    Registration Controller Function. Checks if 
+    Email Adress exists. If it doesn`t it adds
+    a new user to the database.
+    Returns view for the login
+
+    """
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
@@ -58,5 +78,8 @@ def signup_post():
 @auth.route('/logout')
 @login_required
 def logout():
+    """
+    Logout Controller. Returns Index view
+    """
     logout_user()
     return redirect(url_for('main.index'))
