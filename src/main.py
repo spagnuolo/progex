@@ -149,7 +149,7 @@ def delete_item(item_id):
     print(item_id)
     db.delete_item(item_id)
     inventory = db.get_inventory_by_product(current_user.household_id)
-    return render_template('tableviews/allProducts.html', inventory=inventory)
+    return render_template('tableViews/allProducts.html', inventory=inventory)
 ####################################
 # Reciepes
 ####################################
