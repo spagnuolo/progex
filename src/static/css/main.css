@@ -274,3 +274,11 @@ label #sidebar-cancel {
   background-color: #f5f5f5;
   cursor: pointer;
 }
+
+a.is-disabled {
+  cursor: default;
+  pointer-events: none;
+}
+a.is-disabled:hover {
+  transform: scale(1);
+}
